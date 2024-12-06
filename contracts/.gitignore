@@ -12,3 +12,13 @@ docs/
 
 # Dotenv file
 .env
+
+# useless ./contract files
+
+# contracts/cache
+contracts/lib
+# contracts/out
+contracts/script
+contracts/test
+contracts/foundry.toml
+contracts/README.md 
