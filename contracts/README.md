@@ -1,1 +1,1 @@
-WalletManager.sol deployed on Base Sepolia : 0x256Bac4CCD510f812efAE680a61e6Ebd6356F5EA
+WalletManager.sol deployed on Base Sepolia : 0x33C6A4E07AFa99ff74648C4305C82349836D3615 (updated!!)
