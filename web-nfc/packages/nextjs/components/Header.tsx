@@ -15,12 +15,10 @@ export const Header = () => {
   );
 
   return (
-    <div className="sticky bg-black lg:static top-0 navbar bg-base-100 min-h-0 flex-shrink-0 justify-between z-20 shadow-md shadow-secondary px-0 sm:px-2">
-      <div className="navbar-start w-auto ml-6 lg:w-1/2 font-semibold flex justify-between">
+    <div className="sticky bg-black lg:static top-3 navbar min-h-0 flex-shrink-0 justify-between z-30">
+      <div className="navbar-start w-100 ml-6 lg:w-1/2 font-semibold flex justify-between" style={{ width: "100%" }}>
         <span className={poppins.className}>Toll Chain</span>
-        <span className="right-0">
-          <img src="/notif.svg" alt="Notification Icon" />
-        </span>
+        <img src="/notif.svg" style={{ float: "right", marginRight: "8%" }} alt="Notification Icon" />
       </div>
     </div>
   );

@@ -47,36 +47,74 @@ const UserProfile: NextPage = () => {
 
   return (
     <>
-      <div className="bg-black text-white h-screen flex flex-col items-center py-8">
+      <div
+        className="bg-black text-white h-screen flex flex-col items-center py-8"
+        style={{ position: "absolute", top: "70px" }}
+      >
         <div className="w-11/12 max-w-md">
-          <div className="w-24 h-24 bg-gray-800 rounded-full mx-auto mb-6"></div>
-          <h1 className="text-center text-2xl font-semibold mb-6">Samny Raina</h1>
-          <div className="space-y-4">
+          <div className="w-24 h-24 rounded-full mx-auto mb-6" style={{ backgroundColor: "#191919" }}></div>
+          <h1 className="text-center text-2xl font-semibold mb-6" style={{ fontFamily: "Poppins, sans-serif" }}>
+            Samny Raina
+          </h1>
+          <div className="space-y-6 ml-6 mr-6">
             <div>
-              <label className="block text-gray-500 text-sm">State</label>
+              <label
+                className="block text-white text-l"
+                style={{ fontFamily: "Poppins, sans-serif", marginBottom: "10px" }}
+              >
+                Mobile Number
+              </label>
               <input
                 type="text"
-                value={convertRevealBigIntToString(profile.state)}
-                className="w-full bg-gray-800 text-white py-2 px-4 rounded"
+                value="+91 93425 34737"
+                className="w-full text-white py-2 px-4 rounded"
+                style={{ backgroundColor: "#191919", color: "gray", fontFamily: "Poppins, sans-serif" }}
+                disabled
+              />
+            </div>
+            <div>
+              <label
+                className="block text-white text-l"
+                style={{ fontFamily: "Poppins, sans-serif", marginBottom: "10px" }}
+              >
+                Address
+              </label>
+              <input
+                type="text"
+                value="Jawahar Bhawan, IIT Roorkee, Uttrakhand"
+                className="w-full text-white py-2 px-4 rounded"
+                style={{ backgroundColor: "#191919", color: "gray", fontFamily: "Poppins, sans-serif" }}
                 disabled
               />
             </div>
             <div className="flex space-x-4">
               <div className="flex-1">
-                <label className="block text-gray-500 text-sm">Pin Code</label>
+                <label
+                  className="block text-white text-l"
+                  style={{ fontFamily: "Poppins, sans-serif", marginBottom: "10px" }}
+                >
+                  Pin Code
+                </label>
                 <input
                   type="text"
-                  value={profile.pincode}
-                  className="w-full bg-gray-800 text-white py-2 px-4 rounded"
+                  value="360 576"
+                  className="w-full text-white py-2 px-4 rounded"
+                  style={{ backgroundColor: "#191919", color: "gray", fontFamily: "Poppins, sans-serif" }}
                   disabled
                 />
               </div>
               <div className="flex-1">
-                <label className="block text-gray-500 text-sm">Gender</label>
+                <label
+                  className="block text-white text-l"
+                  style={{ fontFamily: "Poppins, sans-serif", marginBottom: "10px" }}
+                >
+                  City
+                </label>
                 <input
                   type="text"
-                  value={profile.gender}
-                  className="w-full bg-gray-800 text-white py-2 px-4 rounded"
+                  value="Roorkee"
+                  className="w-full text-white py-2 px-4 rounded"
+                  style={{ backgroundColor: "#191919", color: "gray", fontFamily: "Poppins, sans-serif" }}
                   disabled
                 />
               </div>

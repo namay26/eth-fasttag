@@ -44,20 +44,7 @@ export default function Reader() {
   };
 
   return (
-    <div>
-      {!serialNumber && (
-        <Image
-          src="/nfcwallet-logo.png"
-          alt="NFC Wallet"
-          width="300"
-          height="124"
-          className={`mx-auto ${serialNumber ? "my-4" : "my-20"}`}
-        />
-      )}
-      <div>
-        {/* <p>Serial Number: {serialNumber}</p> */}
-        {/* {serialNumber && <ShowAccountAddress profile={profile} serialNumber={serialNumber} />} */}
-      </div>
+    <div style={{position:"absolute",top:"330px", marginLeft:"68px"}}>
       <NFCReader onChange={handleNFCData} />
     </div>
   );
