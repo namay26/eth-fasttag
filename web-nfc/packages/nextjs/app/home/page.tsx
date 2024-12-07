@@ -35,36 +35,7 @@ const VehicleProfile: NextPage = () => {
     args: ["MJ03SM2536"],
   });
 
-  const { data: userCars } = useScaffoldReadContract({
-    contractName: "walletManager",
-    functionName: "getUserCars",
-    args: [stringToHex("14517253733069349235333669871336408150595731506407507345889184041886486997053")],
-  });
-  let balances = [];
 
-  userCars?.forEach(ele => {
-    let userAccount = useScaffoldReadContract({
-      contractName: "walletManager",
-      functionName: "getWalletForCar",
-      args: [ele],
-    });
-    const result = useBalance({
-      address: `${userAccount}`,
-    });
-    balances.push(result);
-  });
-
-  const transferEth = async (proof: string, vehicleId: string) => {
-    try {
-      await writeYourContractAsync({
-        functionName: "createWalletForCar",
-        args: [stringToHex(proof), vehicleId],
-      });
-      //   console.log(data);
-    } catch (err) {
-      console.log(err);
-    }
-  };
 
   return (
     <>

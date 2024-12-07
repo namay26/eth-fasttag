@@ -10,7 +10,7 @@ export default function Reader() {
 
   useEffect(() => {
     if (anonAadhaar.status == "logged-in") {
-      router.push("/home");
+      router.push("/fastags");
     }
   }, [anonAadhaar]);
 

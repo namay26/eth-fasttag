@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import { Poppins } from "next/font/google";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import FastagCard from "./components/FastagCard";
 import { useAnonAadhaar } from "@anon-aadhaar/react";
 import type { NextPage } from "next";
 import { stringToBytes, stringToHex, toBytes } from "viem";
@@ -41,14 +42,16 @@ const FASTagProfile: NextPage = () => {
     args: [stringToHex(JSON.parse(pcd).proof.nullifier || "")],
   });
 
-  const wallets = userCars?.map((carId: any) => {
-    const { data } = useScaffoldReadContract({
-      contractName: "walletManager",
-      functionName: "getWalletForCar",
-      args: [carId],
-    });
-    return data;
-  });
+  console.log(userCars);
+
+  // const wallets = userCars?.map((carId: any) => {
+  //   const { data } = useScaffoldReadContract({
+  //     contractName: "walletManager",
+  //     functionName: "getWalletForCar",
+  //     args: [carId],
+  //   });
+  //   return data;
+  // });
 
   // console.log(anonAadhaar);
   // console.log(userCars, wallets);
@@ -85,73 +88,9 @@ const FASTagProfile: NextPage = () => {
               +
             </button>
           </Link>
-
-          <div className="bg-[url('/bg.png')] bg-cover bg-center rounded-lg p-6 mb-6">
-            <div className={poppins.className} style={{ marginLeft: "3px", color: "#5D5F69", fontSize: "12px" }}>
-              Volkswagen Polo :
-            </div>
-            <div
-              className={poppins.className}
-              style={{ marginLeft: "3px", color: "black", fontSize: "24px", fontWeight: "strong" }}
-            >
-              MH 03 SM2536
-            </div>
-            <div
-              className="bg-black flex"
-              style={{ flexDirection: "column", padding: "15px", borderRadius: "10px", width: "45%", marginTop: "4px" }}
-            >
-              <span className={poppins.className} style={{ fontSize: "10px", marginBottom: "4px" }}>
-                Total Balance
-              </span>
-              <span className={poppins.className} style={{ fontSize: "25px", color: "#F9CB29", fontWeight: "bold" }}>
-                $214.920
-              </span>
-            </div>
-          </div>
-          <div className="bg-[url('/bg.png')] bg-cover bg-center rounded-lg p-6 mb-6">
-            <div className={poppins.className} style={{ marginLeft: "3px", color: "#5D5F69", fontSize: "12px" }}>
-              Volkswagen Polo :
-            </div>
-            <div
-              className={poppins.className}
-              style={{ marginLeft: "3px", color: "black", fontSize: "24px", fontWeight: "strong" }}
-            >
-              MH 03 SM2536
-            </div>
-            <div
-              className="bg-black flex"
-              style={{ flexDirection: "column", padding: "15px", borderRadius: "10px", width: "45%", marginTop: "4px" }}
-            >
-              <span className={poppins.className} style={{ fontSize: "10px", marginBottom: "4px" }}>
-                Total Balance
-              </span>
-              <span className={poppins.className} style={{ fontSize: "25px", color: "#F9CB29", fontWeight: "bold" }}>
-                $214.920
-              </span>
-            </div>
-          </div>
-          <div className="bg-[url('/bg.png')] bg-cover bg-center rounded-lg p-6 mb-6">
-            <div className={poppins.className} style={{ marginLeft: "3px", color: "#5D5F69", fontSize: "12px" }}>
-              Volkswagen Polo :
-            </div>
-            <div
-              className={poppins.className}
-              style={{ marginLeft: "3px", color: "black", fontSize: "24px", fontWeight: "strong" }}
-            >
-              MH 03 SM2536
-            </div>
-            <div
-              className="bg-black flex"
-              style={{ flexDirection: "column", padding: "15px", borderRadius: "10px", width: "45%", marginTop: "4px" }}
-            >
-              <span className={poppins.className} style={{ fontSize: "10px", marginBottom: "4px" }}>
-                Total Balance
-              </span>
-              <span className={poppins.className} style={{ fontSize: "25px", color: "#F9CB29", fontWeight: "bold" }}>
-                $214.920
-              </span>
-            </div>
-          </div>
+          {userCars?.map((carId: any) => {
+            return <FastagCard carId={carId} />;
+          })}
         </div>
       </div>
     </>

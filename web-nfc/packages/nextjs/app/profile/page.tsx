@@ -62,26 +62,11 @@ const UserProfile: NextPage = () => {
                 className="block text-white text-l"
                 style={{ fontFamily: "Poppins, sans-serif", marginBottom: "10px" }}
               >
-                Mobile Number
+                State
               </label>
               <input
                 type="text"
-                value="+91 93425 34737"
-                className="w-full text-white py-2 px-4 rounded"
-                style={{ backgroundColor: "#191919", color: "gray", fontFamily: "Poppins, sans-serif" }}
-                disabled
-              />
-            </div>
-            <div>
-              <label
-                className="block text-white text-l"
-                style={{ fontFamily: "Poppins, sans-serif", marginBottom: "10px" }}
-              >
-                Address
-              </label>
-              <input
-                type="text"
-                value="Jawahar Bhawan, IIT Roorkee, Uttrakhand"
+                value={convertRevealBigIntToString(profile.state)}
                 className="w-full text-white py-2 px-4 rounded"
                 style={{ backgroundColor: "#191919", color: "gray", fontFamily: "Poppins, sans-serif" }}
                 disabled
@@ -97,7 +82,7 @@ const UserProfile: NextPage = () => {
                 </label>
                 <input
                   type="text"
-                  value="360 576"
+                  value={profile.pincode}
                   className="w-full text-white py-2 px-4 rounded"
                   style={{ backgroundColor: "#191919", color: "gray", fontFamily: "Poppins, sans-serif" }}
                   disabled
@@ -108,11 +93,11 @@ const UserProfile: NextPage = () => {
                   className="block text-white text-l"
                   style={{ fontFamily: "Poppins, sans-serif", marginBottom: "10px" }}
                 >
-                  City
+                  Gender
                 </label>
                 <input
                   type="text"
-                  value="Roorkee"
+                  value={profile.gender === "77" ? "Male" : "Female"}
                   className="w-full text-white py-2 px-4 rounded"
                   style={{ backgroundColor: "#191919", color: "gray", fontFamily: "Poppins, sans-serif" }}
                   disabled
