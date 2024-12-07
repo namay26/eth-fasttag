@@ -1,11 +1,11 @@
 "use client";
 
+import { useEffect, useState } from "react";
 import { walletManager } from "./../constants";
 import { AnonAadhaarProof, useAnonAadhaar, useProver } from "@anon-aadhaar/react";
 import type { NextPage } from "next";
-import { stringToHex } from "viem";
-// import { stringToBytes, stringToHex, toBytes } from "viem";
-import { useBalance } from "wagmi";
+import { stringToBytes, stringToHex, toBytes } from "viem";
+import { useBalance, useReadContracts } from "wagmi";
 import { useScaffoldReadContract, useScaffoldWriteContract, useTransactor } from "~~/hooks/scaffold-eth";
 import { getMetadata } from "~~/utils/scaffold-eth/getMetadata";
 
@@ -22,6 +22,8 @@ const VehicleProfile: NextPage = () => {
   // console.log(latestProof);
 
   console.log(anonAadhaar);
+
+  const { writeContractAsync: writeYourContractAsync } = useScaffoldWriteContract("walletManager");
 
   const { data } = useScaffoldReadContract({
     contractName: "walletManager",
@@ -48,19 +50,18 @@ const VehicleProfile: NextPage = () => {
     balances.push(result);
   });
 
-  const transferEth = async () => {
+  const transferEth = async (proof: string, vehicleId: string) => {
     try {
-      // if (!address) return;
-      const transactor = useTransactor();
-      const tx = await transactor({
-        to: "0x15E41209168cC2cfac67983DF6a480dCC9343113", // to address
-        value: 1000000000000000000n,
+      await writeYourContractAsync({
+        functionName: "createWalletForCar",
+        args: [stringToHex(proof), vehicleId],
       });
-      console.log(tx);
+      //   console.log(data);
     } catch (err) {
       console.log(err);
     }
   };
+
   return (
     <>
       {anonAadhaar?.status === "logged-in" && (
@@ -76,7 +77,6 @@ const VehicleProfile: NextPage = () => {
             <button className="text-gray-400 text-2xl">🔔</button>
           </div>
 
-          {/* Vehicle Info */}
           <div className="bg-gray-800 rounded-lg p-6 mb-6">
             <div className="text-lg font-semibold mb-2">ID: 8387123010</div>
             <div className="text-sm text-gray-400">Volkswagen Polo</div>
@@ -88,7 +88,6 @@ const VehicleProfile: NextPage = () => {
             </div>
           </div>
 
-          {/* Transactions Section */}
           <div className="w-full">
             <h2 className="text-xl font-semibold mb-4">Transactions</h2>
 
