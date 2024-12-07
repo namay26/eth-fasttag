@@ -52,5 +52,6 @@
     "type-fest": "~4.26.1",
     "typescript": "<5.6.0",
     "vercel": "~37.4.2"
-  }
+  },
+  "packageManager": "yarn@3.2.3"
 }
