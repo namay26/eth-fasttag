@@ -6,11 +6,6 @@ import {UserWallet} from "./UserWallet.sol";
 import {IEntryPoint} from "../lib/account-abstraction/contracts/interfaces/IEntryPoint.sol";
 
 contract WalletManager{
-    // 1. user can signup using anon aadhar
-    // 2. when he does , I store his vehicle id in an array
-    // 3. and corres to this vehicle id , I make a new AA account
-    // 4. setup paymaster for this account , and store the address of the wallet corres to vehicle id
-
     struct Person{
         string name;
         string gender;
@@ -18,16 +13,16 @@ contract WalletManager{
         uint256 pincode;
     }
 
-    mapping(string => address) public carIdToWallet;
-    mapping(bytes => string[]) public userCars;
-    mapping(bytes userProof => Person) userToProfile;
+    mapping(string => address) private carIdToWallet;
+    mapping(bytes => string[]) private userCars;
+    mapping(bytes userProof => Person) private userToProfile;
     IEntryPoint private immutable i_entryPoint;
     
     event WalletCreated(bytes indexed user, string indexed carId, address wallet);
     
     error WalletAlreadyExists();
     
-    constructor(address _entryPoint) { // e changes for diff chains
+    constructor(address _entryPoint) {
         i_entryPoint = IEntryPoint(_entryPoint);
     }
     
@@ -53,9 +48,6 @@ contract WalletManager{
     }
 
 
-
-
-    
     /*//////////////////////////////////////////////////////////////
                            PROFILE FUNCTIONS
     //////////////////////////////////////////////////////////////*/
@@ -69,7 +61,6 @@ contract WalletManager{
             pincode: _pincode
             });
         userToProfile[userProof] = newPerson;
-        // q is overwriting okay?
     }
 
     function getProfile(bytes memory userProof) public view returns(Person memory){
