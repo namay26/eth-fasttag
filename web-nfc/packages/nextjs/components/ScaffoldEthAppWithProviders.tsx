@@ -1,5 +1,4 @@
 "use client";
-
 import { useEffect, useState } from "react";
 import { AnonAadhaarProvider } from "@anon-aadhaar/react";
 import { RainbowKitProvider, darkTheme, lightTheme } from "@rainbow-me/rainbowkit";
@@ -13,17 +12,25 @@ import { Header } from "~~/components/Header";
 import { BlockieAvatar } from "~~/components/scaffold-eth";
 import { useInitializeNativeCurrencyPrice } from "~~/hooks/scaffold-eth";
 import { wagmiConfig } from "~~/services/web3/wagmiConfig";
+import { usePathname } from "next/navigation"; // Import the usePathname hook
 
 const ScaffoldEthApp = ({ children }: { children: React.ReactNode }) => {
   useInitializeNativeCurrencyPrice();
+  const pathname = usePathname(); // Get the current pathname
+
+  // Only show header and footer if the pathname is not "/"
+  const showHeaderFooter = pathname !== "/"; // Hide header/footer on '/' page
 
   return (
     <>
-      <div className={`flex flex-col min-h-screen `}>
-        <Header />
-        <main className="relative flex flex-col flex-1">{children}</main>
-        <Footer />
-      </div>
+      {showHeaderFooter && (
+        <div className={`flex flex-col min-h-screen`}>
+          <Header />
+          <main className="relative flex flex-col flex-1">{children}</main>
+          <Footer />
+        </div>
+      )}
+      {!showHeaderFooter && <main className="relative flex flex-col flex-1">{children}</main>}
       <Toaster />
     </>
   );
