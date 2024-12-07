@@ -1,0 +1,12 @@
+[
+  {
+    "documentType": "PAN",
+    "revealStart": "num=\"",
+    "revealEnd": "\""
+  },
+  {
+    "documentType": "DrivingLicense",
+    "revealStart": "abbreviation=\"",
+    "revealEnd": "\""
+  }
+]
