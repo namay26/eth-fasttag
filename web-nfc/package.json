@@ -41,5 +41,9 @@
   },
   "engines": {
     "node": ">=18.18.0"
+  },
+  "packageManager": "yarn@4.5.3",
+  "dependencies": {
+    "@next/font": "^14.2.15"
   }
 }
