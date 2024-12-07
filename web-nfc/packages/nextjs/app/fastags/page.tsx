@@ -8,6 +8,10 @@ import { getMetadata } from "~~/utils/scaffold-eth/getMetadata";
 import { useBalance, useReadContracts } from "wagmi";
 import { useEffect, useState } from "react";
 
+import Link from "next/link";
+import { usePathname } from "next/navigation";
+
+
 import { Poppins } from '@next/font/google';
 const poppins = Poppins({ subsets: ['latin'], weight: ['400'] });
 const metadata = getMetadata({
@@ -65,32 +69,32 @@ const FASTagProfile: NextPage = () => {
   return (
     <>
       <div className="bg-black text-white h-screen flex flex-col items-center py-8">
-        <div className="w-11/12 max-w-md">  
-          <button className="text-white" style={{marginLeft:"340px", fontSize:'30px'}}>+</button>
+        <div className="w-11/12 max-w-md">
+          <Link href="/add" passhref><button className="text-white" style={{ marginBottom: "20px", marginLeft: "320px", fontSize: '40px' }}>+</button></Link>
 
 
           <div className="bg-[url('/bg.png')] bg-cover bg-center rounded-lg p-6 mb-6">
-            <div className={poppins.className} style={{marginLeft:"3px", color: "#5D5F69", fontSize:'12px'}}>Volkswagen Polo :</div>
-            <div className={poppins.className} style={{marginLeft:"3px",color: "black", fontSize:'24px', fontWeight: "strong"}}>MH 03 SM2536</div> 
-            <div className="bg-black flex" style={{flexDirection:"column", padding:"15px", borderRadius:"10px", width:"45%", marginTop:"4px"}}>
-                <span className={poppins.className} style={{fontSize:"10px", marginBottom:"4px"}}>Total Balance</span>
-                <span className={poppins.className} style={{fontSize:"25px", color:"#F9CB29", fontWeight:"bold"}}>$214.920</span>
+            <div className={poppins.className} style={{ marginLeft: "3px", color: "#5D5F69", fontSize: '12px' }}>Volkswagen Polo :</div>
+            <div className={poppins.className} style={{ marginLeft: "3px", color: "black", fontSize: '24px', fontWeight: "strong" }}>MH 03 SM2536</div>
+            <div className="bg-black flex" style={{ flexDirection: "column", padding: "15px", borderRadius: "10px", width: "45%", marginTop: "4px" }}>
+              <span className={poppins.className} style={{ fontSize: "10px", marginBottom: "4px" }}>Total Balance</span>
+              <span className={poppins.className} style={{ fontSize: "25px", color: "#F9CB29", fontWeight: "bold" }}>$214.920</span>
             </div>
           </div>
           <div className="bg-[url('/bg.png')] bg-cover bg-center rounded-lg p-6 mb-6">
-            <div className={poppins.className} style={{marginLeft:"3px", color: "#5D5F69", fontSize:'12px'}}>Volkswagen Polo :</div>
-            <div className={poppins.className} style={{marginLeft:"3px",color: "black", fontSize:'24px', fontWeight: "strong"}}>MH 03 SM2536</div> 
-            <div className="bg-black flex" style={{flexDirection:"column", padding:"15px", borderRadius:"10px", width:"45%", marginTop:"4px"}}>
-                <span className={poppins.className} style={{fontSize:"10px", marginBottom:"4px"}}>Total Balance</span>
-                <span className={poppins.className} style={{fontSize:"25px", color:"#F9CB29", fontWeight:"bold"}}>$214.920</span>
+            <div className={poppins.className} style={{ marginLeft: "3px", color: "#5D5F69", fontSize: '12px' }}>Volkswagen Polo :</div>
+            <div className={poppins.className} style={{ marginLeft: "3px", color: "black", fontSize: '24px', fontWeight: "strong" }}>MH 03 SM2536</div>
+            <div className="bg-black flex" style={{ flexDirection: "column", padding: "15px", borderRadius: "10px", width: "45%", marginTop: "4px" }}>
+              <span className={poppins.className} style={{ fontSize: "10px", marginBottom: "4px" }}>Total Balance</span>
+              <span className={poppins.className} style={{ fontSize: "25px", color: "#F9CB29", fontWeight: "bold" }}>$214.920</span>
             </div>
           </div>
           <div className="bg-[url('/bg.png')] bg-cover bg-center rounded-lg p-6 mb-6">
-            <div className={poppins.className} style={{marginLeft:"3px", color: "#5D5F69", fontSize:'12px'}}>Volkswagen Polo :</div>
-            <div className={poppins.className} style={{marginLeft:"3px",color: "black", fontSize:'24px', fontWeight: "strong"}}>MH 03 SM2536</div> 
-            <div className="bg-black flex" style={{flexDirection:"column", padding:"15px", borderRadius:"10px", width:"45%", marginTop:"4px"}}>
-                <span className={poppins.className} style={{fontSize:"10px", marginBottom:"4px"}}>Total Balance</span>
-                <span className={poppins.className} style={{fontSize:"25px", color:"#F9CB29", fontWeight:"bold"}}>$214.920</span>
+            <div className={poppins.className} style={{ marginLeft: "3px", color: "#5D5F69", fontSize: '12px' }}>Volkswagen Polo :</div>
+            <div className={poppins.className} style={{ marginLeft: "3px", color: "black", fontSize: '24px', fontWeight: "strong" }}>MH 03 SM2536</div>
+            <div className="bg-black flex" style={{ flexDirection: "column", padding: "15px", borderRadius: "10px", width: "45%", marginTop: "4px" }}>
+              <span className={poppins.className} style={{ fontSize: "10px", marginBottom: "4px" }}>Total Balance</span>
+              <span className={poppins.className} style={{ fontSize: "25px", color: "#F9CB29", fontWeight: "bold" }}>$214.920</span>
             </div>
           </div>
 

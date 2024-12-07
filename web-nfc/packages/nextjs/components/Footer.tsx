@@ -60,7 +60,7 @@ export const HeaderMenuLinks = () => {
 export const Footer = () => {
 
   return (
-    <div className="fixed bottom-0 w-full py-4 flex justify-around">
+    <div className="fixed bottom-0 w-full py-4 flex justify-around" style={{opacity:"100"}}>
       <HeaderMenuLinks />
     </div>
   );
