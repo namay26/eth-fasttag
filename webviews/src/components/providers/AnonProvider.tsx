@@ -6,7 +6,9 @@ interface AnonProviderProps {
 }
 
 const AnonProvider = ({ children }: AnonProviderProps) => {
-  return <AnonAadhaarProvider _useTestAadhaar>{children}</AnonAadhaarProvider>;
+  return (
+    <AnonAadhaarProvider _useTestAadhaar={true}>{children}</AnonAadhaarProvider>
+  );
 };
 
 export default AnonProvider;

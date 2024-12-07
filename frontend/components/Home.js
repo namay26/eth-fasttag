@@ -11,6 +11,13 @@ import {
 } from "react-native";
 import { WebView } from "react-native-webview";
 import { useState } from "react";
+import "@walletconnect/react-native-compat";
+import { useAccount, useReadContract, useWriteContract } from "wagmi";
+
+import { AppKitButton } from "@reown/appkit-wagmi-react-native";
+import { walletManager } from "../constants";
+
+import { stringToBytes, stringToHex, toBytes } from "viem";
 
 const IPAddress = "10.100.17.206";
 
@@ -18,7 +25,49 @@ export default function Home() {
   const [showWebView, setShowWebView] = useState(false);
   const [anonAadhaar, setAnonAadhaar] = useState({});
 
-  console.log(anonAadhaar);
+  const { address } = useAccount();
+
+  const { data } = useReadContract({
+    abi: walletManager.abi,
+    address: walletManager.address,
+    functionName: "getWalletForCar",
+    args: ["MJ03SM2536"],
+  });
+
+  const { data: userCars } = useReadContract({
+    abi: walletManager.abi,
+    address: walletManager.address,
+    functionName: "getUserCars",
+    args: [
+      stringToHex(
+        "14517253733069349235333669871336408150595731506407507345889184041886486997053"
+      ),
+    ],
+  });
+
+  // fetch balance of contract "0x15E41209168cC2cfac67983DF6a480dCC9343113"
+
+  const { data: balance } = useReadContract({
+    address: "0x15E41209168cC2cfac67983DF6a480dCC9343113",
+    abi: [
+      {
+        inputs: [],
+        name: "balanceOf",
+        outputs: [{ internalType: "uint256", name: "", type: "uint256" }],
+        stateMutability: "view",
+        type: "function",
+      },
+    ],
+    functionName: "balanceOf",
+    args: ["0x15E41209168cC2cfac67983DF6a480dCC9343113"],
+  });
+
+  console.log("balance", balance);
+
+  const { writeContractAsync, isSuccess } = useWriteContract();
+  // read WalletCreated event after wallet creation
+
+  console.log("anon nullifier", data);
 
   const handleProofGeneration = (event) => {
     // const data = JSON.parse(event.nativeEvent);
@@ -27,8 +76,67 @@ export default function Home() {
     // setShowWebView(false);
   };
 
+  console.log("connected Wallet address", address);
+  const createUserWallet = async () => {
+    try {
+      if (!address) return;
+
+      const data = await writeContractAsync({
+        address: walletManager.address,
+        abi: walletManager.abi,
+        functionName: "createWalletForCar",
+        args: [
+          stringToHex(
+            "14517253733069349235333669871336408150595731506407507345889184041886486997053"
+          ),
+          "MJ03SM2536",
+        ],
+      });
+      console.log(data);
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
+  const transferEth = async () => {
+    try {
+      if (!address) return;
+
+      const tx = await writeContractAsync({
+        address: "0x74C855b83cB6fCc5fDf29aFbDfBfB2f5cAeDaD8",
+        abi: [
+          {
+            inputs: [
+              { internalType: "address", name: "_to", type: "address" },
+              { internalType: "uint256", name: "_value", type: "uint256" },
+            ],
+            name: "transfer",
+            outputs: [{ internalType: "bool", name: "", type: "bool" }],
+            stateMutability: "nonpayable",
+            type: "function",
+          },
+        ],
+        functionName: "transfer",
+        args: ["0x15E41209168cC2cfac67983DF6a480dCC9343113", "0.1"],
+      });
+      console.log(tx);
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
   return (
     <ScrollView>
+      <AppKitButton />
+
+      <TouchableOpacity
+        style={styles.button}
+        onPress={() => {
+          createUserWallet();
+        }}
+      >
+        <Text style={styles.buttonText}>Create User Wallet</Text>
+      </TouchableOpacity>
       <View style={styles.main_container}>
         <View style={styles.container1}>
           <View style={styles.container1_1}></View>
@@ -160,7 +268,7 @@ const styles = StyleSheet.create({
   container2_1: {
     paddingLeft: 16.68,
     width: 352.966,
-    height: 216.825,
+    height: 716.825,
     borderRadius: 10.622,
     backgroundColor: "#191919",
     flexDirection: "row",
