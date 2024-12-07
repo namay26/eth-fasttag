@@ -11,23 +11,25 @@ type HeaderMenuLink = {
 export const menuLinks: HeaderMenuLink[] = [
   {
     icon: "/home.svg",
-    label: "Scanner",
-    href: "/scanner",
-  },
-  {
-    icon: "/wallet.svg",
-    label: "Profile",
-    href: "/profile",
-  },
-  {
-    icon: "/map.svg",
     label: "Home",
     href: "/home",
   },
   {
-    icon: "/profile.svg",
+    icon: "/wallet.svg",
     label: "Fastags",
     href: "/fastags",
+  },
+  {
+    icon: "/map.svg",
+    label: "Scanner",
+    href: "/scanner",
+
+  },
+  {
+    icon: "/profile.svg",
+    label: "Profile",
+    href: "/profile",
+
   },
 ];
 
