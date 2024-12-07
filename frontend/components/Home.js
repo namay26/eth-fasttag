@@ -9,6 +9,8 @@ import {
   Alert,
   ScrollView,
 } from "react-native";
+
+import Svg, { Path } from 'react-native-svg';
 import { WebView } from "react-native-webview";
 import { useState } from "react";
 
@@ -31,9 +33,22 @@ export default function Home() {
     <ScrollView>
       <View style={styles.main_container}>
         <View style={styles.container1}>
-          <View style={styles.container1_1}></View>
+          <View style={styles.container1_1}>
+
+
+          </View>
           <View style={styles.container1_2}>
-            <View style={styles.container1_2_1}></View>
+            <View>
+              <Svg xmlns="http://www.w3.org/2000/svg" width={20} height={20} viewBox="0 0 28 28" fill="none">
+                <Path
+                  fillRule="evenodd"
+                  clipRule="evenodd"
+                  d="M12.2498 2.3335C10.6685 2.33363 9.11015 2.71192 7.70477 3.43681C6.2994 4.16169 5.08775 5.21215 4.17092 6.50054C3.25408 7.78893 2.65865 9.2779 2.4343 10.8432C2.20995 12.4085 2.36318 14.0048 2.88122 15.4988C3.39925 16.9929 4.26706 18.3414 5.41225 19.4318C6.55744 20.5223 7.9468 21.3231 9.46441 21.7674C10.982 22.2117 12.5839 22.2866 14.1363 21.9859C15.6888 21.6852 17.1468 21.0176 18.3888 20.0388L22.6495 24.2995C22.8695 24.512 23.1642 24.6296 23.4701 24.6269C23.776 24.6243 24.0686 24.5016 24.2849 24.2853C24.5012 24.069 24.6239 23.7764 24.6266 23.4705C24.6292 23.1646 24.5117 22.8699 24.2991 22.6498L20.0385 18.3892C21.1911 16.9269 21.9088 15.1696 22.1094 13.3185C22.31 11.4674 21.9854 9.59719 21.1727 7.92194C20.3601 6.24669 19.0922 4.83408 17.5142 3.84577C15.9361 2.85745 14.1118 2.33337 12.2498 2.3335ZM4.66647 12.2502C4.66647 10.2389 5.46543 8.31009 6.88758 6.88794C8.30973 5.46579 10.2386 4.66683 12.2498 4.66683C14.261 4.66683 16.1899 5.46579 17.612 6.88794C19.0342 8.31009 19.8331 10.2389 19.8331 12.2502C19.8331 14.2614 19.0342 16.1902 17.612 17.6124C16.1899 19.0345 14.261 19.8335 12.2498 19.8335C10.2386 19.8335 8.30973 19.0345 6.88758 17.6124C5.46543 16.1902 4.66647 14.2614 4.66647 12.2502Z"
+                  fill="white"
+                  fillOpacity={0.4}
+                />
+              </Svg>
+            </View>
             <Text style={styles.container1_2_text}> Search</Text>
           </View>
           <View style={styles.container1_3}></View>
@@ -80,6 +95,52 @@ export default function Home() {
 
           <Text style={styles.container2_2}> Trasnactions</Text>
 
+          <View style={styles.container2_3}>
+            <View style={styles.container2_3_1}>
+              <View style={styles.container2_3_circle}></View>
+              <View style={styles.container2_3_text}>
+                <Text style={styles.container2_3_text1}>Toll plaza </Text>
+                <Text style={styles.container2_3_text2}>National highway </Text>
+                <Text style={styles.container2_3_text3}>
+                  Toll Amount: 0.0054ETH{" "}
+                </Text>
+              </View>
+            </View>
+            <View style={styles.container2_3_2}>
+              <Text style={styles.container2_3_Text}>18 August 2020</Text>
+              <Text style={styles.container2_3_Text}>4:45pm</Text>
+            </View>
+          </View><View style={styles.container2_3}>
+            <View style={styles.container2_3_1}>
+              <View style={styles.container2_3_circle}></View>
+              <View style={styles.container2_3_text}>
+                <Text style={styles.container2_3_text1}>Toll plaza </Text>
+                <Text style={styles.container2_3_text2}>National highway </Text>
+                <Text style={styles.container2_3_text3}>
+                  Toll Amount: 0.0054ETH{" "}
+                </Text>
+              </View>
+            </View>
+            <View style={styles.container2_3_2}>
+              <Text style={styles.container2_3_Text}>18 August 2020</Text>
+              <Text style={styles.container2_3_Text}>4:45pm</Text>
+            </View>
+          </View><View style={styles.container2_3}>
+            <View style={styles.container2_3_1}>
+              <View style={styles.container2_3_circle}></View>
+              <View style={styles.container2_3_text}>
+                <Text style={styles.container2_3_text1}>Toll plaza </Text>
+                <Text style={styles.container2_3_text2}>National highway </Text>
+                <Text style={styles.container2_3_text3}>
+                  Toll Amount: 0.0054ETH{" "}
+                </Text>
+              </View>
+            </View>
+            <View style={styles.container2_3_2}>
+              <Text style={styles.container2_3_Text}>18 August 2020</Text>
+              <Text style={styles.container2_3_Text}>4:45pm</Text>
+            </View>
+          </View>
           <View style={styles.container2_3}>
             <View style={styles.container2_3_1}>
               <View style={styles.container2_3_circle}></View>
@@ -160,11 +221,11 @@ const styles = StyleSheet.create({
   container2_1: {
     paddingLeft: 16.68,
     width: 352.966,
-    height: 216.825,
+    height: 190.825,
     borderRadius: 10.622,
     backgroundColor: "#191919",
     flexDirection: "row",
-    gap: 60,
+    gap: 55,
     alignItems: "center",
   },
   container2_1_text: {},
@@ -176,7 +237,7 @@ const styles = StyleSheet.create({
     fontFamily: "Poppins", // Ensure Poppins font is loaded or available
     fontSize: 14.747,
     fontStyle: "normal",
-    fontWeight: "500",
+    fontWeight: "700",
     lineHeight: 34.409,
   },
   container2_1_text2: {
@@ -184,7 +245,7 @@ const styles = StyleSheet.create({
     fontFamily: "Poppins", // Ensure Poppins font is loaded or available
     fontSize: 14.747,
     fontStyle: "normal",
-    fontWeight: "500",
+    fontWeight: "600",
     lineHeight: 34.409,
   },
   container2_1_text3: {
@@ -192,7 +253,7 @@ const styles = StyleSheet.create({
     fontFamily: "Poppins", // Ensure Poppins font is loaded or available
     fontSize: 19.662,
     fontStyle: "normal",
-    fontWeight: "500",
+    fontWeight: "600",
     lineHeight: 39.324,
   },
   container2_1_text4: {
@@ -200,7 +261,7 @@ const styles = StyleSheet.create({
     fontFamily: "Poppins", // Ensure Poppins font is loaded or available
     fontSize: 24.02,
     fontStyle: "normal",
-    fontWeight: "500",
+    fontWeight: "600",
     lineHeight: 34.409,
   },
   container2_1_button: {
@@ -211,7 +272,7 @@ const styles = StyleSheet.create({
   button: {
     marginTop: 26,
     marginBottom: 10,
-    width: 117.433,
+    width: 120.433,
     height: 36.031,
     backgroundColor: "#191919", // Button color
     backgroundColor: "#FFFFFF", // Button color
@@ -225,7 +286,7 @@ const styles = StyleSheet.create({
     color: "#000000",
     fontFamily: "Poppins", // Text color
     fontSize: 13.345,
-    fontWeight: "Medium", // Text weight
+    fontWeight: "500", // Text weight
   },
 
   container2_2: {
@@ -263,7 +324,7 @@ const styles = StyleSheet.create({
     fontFamily: "Poppins", // Ensure Poppins font is linked
     fontSize: 14.679,
     fontStyle: "normal",
-    fontWeight: "500",
+    fontWeight: "600",
     lineHeight: 20.422,
   },
   container2_3_text2: {
@@ -280,7 +341,7 @@ const styles = StyleSheet.create({
     fontFamily: "Poppins", // Make sure Poppins font is loaded or available
     fontSize: 18.683,
     fontStyle: "normal",
-    fontWeight: "500",
+    fontWeight: "600",
     lineHeight: 28.277,
   },
   container2_3_2: {
@@ -293,7 +354,7 @@ const styles = StyleSheet.create({
     fontFamily: "Poppins", // Ensure Poppins font is loaded or available
     fontSize: 10.676,
     fontStyle: "normal",
-    fontWeight: "500",
+    fontWeight: "600",
     lineHeight: 14, // React Native doesn't support 'normal', so use a numeric value
   },
   webViewContainer: {
