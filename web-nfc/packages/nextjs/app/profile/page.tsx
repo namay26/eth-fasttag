@@ -1,16 +1,18 @@
+"use client";
+
 import type { NextPage } from "next";
 import { stringToHex } from "viem";
 import { useScaffoldReadContract } from "~~/hooks/scaffold-eth";
 import { getMetadata } from "~~/utils/scaffold-eth/getMetadata";
 
-export const metadata = getMetadata({
+const metadata = getMetadata({
   title: "User Profile",
   description: "View and manage user profile details",
 });
 
 const UserProfile: NextPage = () => {
   //get the proof
-  
+  const proof = "1234";
   const { data: profile } = useScaffoldReadContract({
     contractName: "walletManager",
     functionName: "getProfile",

@@ -1,16 +1,20 @@
+"use client";
+
 import type { NextPage } from "next";
 import { stringToBytes, stringToHex, toBytes } from "viem";
 import { useScaffoldWriteContract } from "~~/hooks/scaffold-eth";
 import { getMetadata } from "~~/utils/scaffold-eth/getMetadata";
 
-export const metadata = getMetadata({
+const metadata = getMetadata({
   title: "FASTag Profiles",
   description: "View and manage your FASTag accounts",
 });
 
 const FASTagProfile: NextPage = () => {
-    //call proof using state
-    //get vehicle id 
+  //call proof using state
+  const proof = "1234";
+  const vehicleId = "1234J";
+  //get vehicle id
   const createUserWallet = async (vehicleId, proof) => {
     const { writeContractAsync: writeYourContractAsync } = useScaffoldWriteContract("walletManager");
     try {
@@ -33,9 +37,8 @@ const FASTagProfile: NextPage = () => {
             <button className="text-gray-400 text-2xl">🔔</button>
           </div>
 
-          <button className="text-gray-400 text-2xl" onClick={() => createUserWallet()}>
-            Add fastag
-          </button>
+          {/* <button className="text-gray-400 text-2xl" > //write onClick */}
+          <button className="text-gray-400 text-2xl">Add fastag</button>
           {/* FASTags Header */}
           <div className="text-xl font-semibold mb-6">FASTags</div>
 
