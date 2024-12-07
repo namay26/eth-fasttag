@@ -1,24 +1,22 @@
 "use client";
-import { LogInWithAnonAadhaar, useAnonAadhaar } from "@anon-aadhaar/react"; 
-import React, { useState } from "react";
-import { useRouter } from "next/navigation";
 
+import React, { useEffect } from "react";
+import { useRouter } from "next/navigation";
+import { LogInWithAnonAadhaar, useAnonAadhaar } from "@anon-aadhaar/react";
 
 export default function Reader() {
-  const router=useRouter();
-  const [isLogged, setIsLogged] = useState(false);
+  const router = useRouter();
   const [anonAadhaar] = useAnonAadhaar();
-  if(anonAadhaar.status=="logged-in"){
-    setIsLogged(true);
-    router.push("/home");
-  }
 
-  console.log(anonAadhaar);
-
+  useEffect(() => {
+    if (anonAadhaar.status == "logged-in") {
+      router.push("/home");
+    }
+  }, [anonAadhaar]);
 
   return (
     <div className="bg-black text-white h-screen flex flex-col items-center py-8 mt-40">
-      <LogInWithAnonAadhaar nullifierSeed={4354} />
+      <LogInWithAnonAadhaar fieldsToReveal={["revealGender", "revealState", "revealPinCode"]} nullifierSeed={4354} />
     </div>
   );
 }

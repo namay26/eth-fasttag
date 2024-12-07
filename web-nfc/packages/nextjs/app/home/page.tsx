@@ -1,6 +1,7 @@
 "use client";
 
 import { walletManager } from "./../constants";
+import { AnonAadhaarProof, useAnonAadhaar, useProver } from "@anon-aadhaar/react";
 import type { NextPage } from "next";
 import { stringToHex } from "viem";
 // import { stringToBytes, stringToHex, toBytes } from "viem";
@@ -15,6 +16,12 @@ const metadata = getMetadata({
 
 const VehicleProfile: NextPage = () => {
   // const { address } = useAccount();
+  const [anonAadhaar] = useAnonAadhaar();
+  const [, latestProof] = useProver();
+
+  // console.log(latestProof);
+
+  console.log(anonAadhaar);
 
   const { data } = useScaffoldReadContract({
     contractName: "walletManager",
@@ -56,6 +63,12 @@ const VehicleProfile: NextPage = () => {
   };
   return (
     <>
+      {anonAadhaar?.status === "logged-in" && (
+        <>
+          <p>✅ Proof is valid</p>
+          {latestProof && <AnonAadhaarProof code={JSON.stringify(latestProof, null, 2)} />}
+        </>
+      )}
       <div className="bg-black text-white h-screen flex flex-col items-center py-8">
         <div className="w-11/12 max-w-md">
           <div className="flex items-center justify-between mb-6">
