@@ -2,11 +2,12 @@
 
 import { walletManager } from "./../constants";
 import type { NextPage } from "next";
-import { stringToHex } from "viem";
-// import { stringToBytes, stringToHex, toBytes } from "viem";
-import { useBalance } from "wagmi";
+import { useEffect, useState } from "react";
+import { stringToBytes, stringToHex, toBytes } from "viem";
+import { useBalance, useReadContracts } from "wagmi";
 import { useScaffoldReadContract, useScaffoldWriteContract, useTransactor } from "~~/hooks/scaffold-eth";
 import { getMetadata } from "~~/utils/scaffold-eth/getMetadata";
+import { useProver } from "@anon-aadhaar/react";
 
 const metadata = getMetadata({
   title: "Vehicle Profile",
@@ -14,46 +15,24 @@ const metadata = getMetadata({
 });
 
 const VehicleProfile: NextPage = () => {
-  // const { address } = useAccount();
-
-  const { data } = useScaffoldReadContract({
-    contractName: "walletManager",
-    functionName: "getWalletForCar",
-    args: ["MJ03SM2536"],
-  });
-
-  const { data: userCars } = useScaffoldReadContract({
-    contractName: "walletManager",
-    functionName: "getUserCars",
-    args: [stringToHex("14517253733069349235333669871336408150595731506407507345889184041886486997053")],
-  });
-  let balances = [];
-
-  userCars?.forEach(ele => {
-    let userAccount = useScaffoldReadContract({
-      contractName: "walletManager",
-      functionName: "getWalletForCar",
-      args: [ele],
-    });
-    const result = useBalance({
-      address: `${userAccount}`,
-    });
-    balances.push(result);
-  });
-
-  const transferEth = async () => {
+  const [,LatestProof] = useProver();
+  const proof = "hello"
+  const vehicleId = "1234J";
+  const createUserWallet = async (vehicleId, proof) => {
+    const { writeContractAsync: writeYourContractAsync } = useScaffoldWriteContract("walletManager");
     try {
-      // if (!address) return;
-      const transactor = useTransactor();
-      const tx = await transactor({
-        to: "0x15E41209168cC2cfac67983DF6a480dCC9343113", // to address
-        value: 1000000000000000000n,
+      await writeYourContractAsync({
+        functionName: "createWalletForCar",
+        args: [stringToHex(proof), vehicleId],
       });
-      console.log(tx);
+      //   console.log(data);
     } catch (err) {
       console.log(err);
     }
   };
+
+
+
   return (
     <>
       <div className="bg-black text-white h-screen flex flex-col items-center py-8">
@@ -63,7 +42,6 @@ const VehicleProfile: NextPage = () => {
             <button className="text-gray-400 text-2xl">🔔</button>
           </div>
 
-          {/* Vehicle Info */}
           <div className="bg-gray-800 rounded-lg p-6 mb-6">
             <div className="text-lg font-semibold mb-2">ID: 8387123010</div>
             <div className="text-sm text-gray-400">Volkswagen Polo</div>
@@ -75,7 +53,6 @@ const VehicleProfile: NextPage = () => {
             </div>
           </div>
 
-          {/* Transactions Section */}
           <div className="w-full">
             <h2 className="text-xl font-semibold mb-4">Transactions</h2>
 

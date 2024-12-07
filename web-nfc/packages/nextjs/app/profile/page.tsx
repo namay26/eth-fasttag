@@ -4,6 +4,7 @@ import type { NextPage } from "next";
 import { stringToHex } from "viem";
 import { useScaffoldReadContract } from "~~/hooks/scaffold-eth";
 import { getMetadata } from "~~/utils/scaffold-eth/getMetadata";
+import { useProver } from "@anon-aadhaar/react";
 
 const metadata = getMetadata({
   title: "User Profile",
@@ -11,8 +12,9 @@ const metadata = getMetadata({
 });
 
 const UserProfile: NextPage = () => {
-  //get the proof
-  const proof = "1234";
+  const [,LatestProof] = useProver();
+  const proof = "1234k";
+
   const { data: profile } = useScaffoldReadContract({
     contractName: "walletManager",
     functionName: "getProfile",
