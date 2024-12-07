@@ -1,10 +1,9 @@
+
 "use client";
-import { LogInWithAnonAadhaar, useAnonAadhaar } from "@anon-aadhaar/react"; 
+
 import React, { useState } from "react";
 import Image from "next/image";
-import { WagmiConfig } from "wagmi";
 import NFCReader from "~~/components/NFCReader";
-import { wagmiConfig } from "~~/services/web3/wagmiConfig";
 
 
 interface Profile {
@@ -17,11 +16,9 @@ interface Profile {
 }
 
 export default function Reader() {
+  // const [urlRecord, setUrlRecord] = useState("");
   const [profile, setProfile] = useState<Profile | null>(null);
   const [serialNumber, setSerialNumber] = useState("");
-  const [anonAadhaar] = useAnonAadhaar();
-
-  console.log(anonAadhaar);
 
   const fetchProfile = async (profileId: string) => {
     const res = await fetch(`/api/getProfile/${profileId}`);
@@ -48,7 +45,6 @@ export default function Reader() {
 
   return (
     <div>
-      <LogInWithAnonAadhaar nullifierSeed={4354} />
       {!serialNumber && (
         <Image
           src="/nfcwallet-logo.png"
@@ -59,6 +55,8 @@ export default function Reader() {
         />
       )}
       <div>
+        {/* <p>Serial Number: {serialNumber}</p> */}
+        {/* {serialNumber && <ShowAccountAddress profile={profile} serialNumber={serialNumber} />} */}
       </div>
       <NFCReader onChange={handleNFCData} />
     </div>
