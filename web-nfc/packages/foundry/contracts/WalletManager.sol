@@ -13,26 +13,37 @@ contract WalletManager{
         uint256 pincode;
     }
 
+    error WalletManager__WalletAlreadyExists();
+    error WalletManager__NotOwner();
+
+    address owner;
+
     mapping(string => address) private carIdToWallet;
     mapping(bytes => string[]) private userCars;
     mapping(bytes userProof => Person) private userToProfile;
     IEntryPoint private immutable i_entryPoint;
+
+    modifier onlyOwner {
+        if(owner!= msg.sender){
+            revert WalletManager__NotOwner();
+        }
+        _;
+    }
     
     event WalletCreated(bytes indexed user, string indexed carId, address wallet);
     
-    error WalletAlreadyExists();
     
     constructor(address _entryPoint) {
         i_entryPoint = IEntryPoint(_entryPoint);
+        owner = msg.sender;
     }
     
     function createWalletForCar(bytes memory userProof ,string memory carId) external returns (address) {
         if(carIdToWallet[carId] != address(0)) {
-            revert WalletAlreadyExists();
+            revert WalletManager__WalletAlreadyExists();
         }
         
         UserWallet newWallet = new UserWallet(address(i_entryPoint));
-        newWallet.transferOwnership(msg.sender); // e VERY IMPORTANT
         carIdToWallet[carId] = address(newWallet);
         userCars[userProof].push(carId);
         
@@ -66,6 +77,21 @@ contract WalletManager{
 
     function getProfile(bytes memory userProof) public view returns(Person memory){
         return userToProfile[userProof];
+    }
+
+                                                     
+    /*//////////////////////////////////////////////////////////////
+                              WHITELISTING
+    //////////////////////////////////////////////////////////////*/
+
+
+    function addToWhitelist_UserWallet(address[] memory addresses , string memory carId) public onlyOwner{
+        address carWallet = carIdToWallet[carId];
+        UserWallet wallet = UserWallet(payable(carWallet));
+        uint256 len = addresses.length;
+        for(uint i =0;i<len;i++){
+            wallet.addToWhitelist(addresses[i]);
+        }
     }
 
 }

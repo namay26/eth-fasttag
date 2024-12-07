@@ -11,23 +11,33 @@ import {SIG_VALIDATION_FAILED,SIG_VALIDATION_SUCCESS} from "../lib/account-abstr
 import {IEntryPoint} from "../lib/account-abstraction/contracts/interfaces/IEntryPoint.sol";
 
 contract UserWallet is IAccount , Ownable{
+
+    mapping(address _contract => bool isWhitelisted) private whitelisted;
     
     IEntryPoint private immutable i_entryPoint;
 
-    error MinimalAccount__OnlyEntryPointAllowed();
-    error MinimalAccount__OnlyEntryPointOrOwnerAllowed();
-    error MinimalAccount__CallFailed(bytes);
+    error UserWallet__OnlyEntryPointAllowed();
+    error UserWallet__OnlyEntryPointOrOwnerAllowed();
+    error UserWallet__CallFailed(bytes);
+    error UserWallet__OnlyOwnerAllowed();
 
     modifier onlyEntryPoint {
         if(msg.sender != address(i_entryPoint)){
-            revert MinimalAccount__OnlyEntryPointAllowed();
+            revert UserWallet__OnlyEntryPointAllowed();
         }
         _;
     }
 
     modifier onlyEntryPointOrOwner{
         if((msg.sender != address(i_entryPoint)) && (msg.sender != owner())){
-            revert MinimalAccount__OnlyEntryPointOrOwnerAllowed();
+            revert UserWallet__OnlyEntryPointOrOwnerAllowed();
+        }
+        _;
+    }
+
+    modifier onlyOwnerUserWallet{
+        if(msg.sender != owner()){
+            revert UserWallet__OnlyOwnerAllowed();
         }
         _;
     }
@@ -77,8 +87,28 @@ contract UserWallet is IAccount , Ownable{
     function execute(address dest , uint256 value , bytes calldata functionData) onlyEntryPointOrOwner external {
         (bool success , bytes memory result) = dest.call{value : value}(functionData);
         if(!success){
-            revert MinimalAccount__CallFailed(result);
+            revert UserWallet__CallFailed(result);
         }
+    }
+
+
+                                                     
+    /*//////////////////////////////////////////////////////////////
+                              WHITELISTING
+    //////////////////////////////////////////////////////////////*/
+
+    function isWhitelisted(address _add) public view returns(bool){
+        return whitelisted[_add];
+    }
+
+    function addToWhitelist(address _add) public onlyOwner{
+        whitelisted[_add] = true;
+    }
+
+    function withdrawToll(address from , uint256 amount) external{
+        require(isWhitelisted(from) , "Cannot Withdraw if not whitelisted");
+        (bool success ,) = payable(from).call{value : amount}("");
+        require(success);
     }
 
 }
