@@ -10,18 +10,22 @@ type HeaderMenuLink = {
 
 export const menuLinks: HeaderMenuLink[] = [
   {
+    icon: "/home.svg",
     label: "Scanner",
     href: "/scanner",
   },
   {
+    icon: "/wallet.svg",
     label: "Profile",
     href: "/profile",
   },
   {
+    icon: "/map.svg",
     label: "Home",
     href: "/home",
   },
   {
+    icon: "/profile.svg",
     label: "Fastags",
     href: "/fastags",
   },
@@ -35,18 +39,16 @@ export const HeaderMenuLinks = () => {
       {menuLinks.map(({ label, href, icon }) => {
         const isActive = pathname === href;
         return (
-          <button key={href} className="text-gray-400">
+          <button key={href}>
             <Link
               href={href}
               passHref
-              className={`${
-                isActive ? "bg-secondary shadow-md" : ""
-              } hover:bg-secondary hover:shadow-md focus:!bg-secondary active:!text-neutral py-1.5 px-3 text-sm rounded-full gap-2 grid grid-flow-col`}
+              className={`${isActive ? "bg-gray-1200 shadow-md" : ""
+                } hover:bg-secondary color:white hover:shadow-md focus:bg-secondary active:text-neutral py-1.5 px-3 text-sm rounded-10 gap-2 grid grid-flow-col`}
             >
-              {icon}
-              <span>{label}</span>
+              <span><img src={icon} /></span>
             </Link>
-            </button>
+          </button>
         );
       })}
     </>
@@ -56,8 +58,8 @@ export const HeaderMenuLinks = () => {
 export const Footer = () => {
 
   return (
-        <div className="fixed bottom-0 w-full bg-gray-900 py-4 flex justify-around">
-           <HeaderMenuLinks />
-        </div>
+    <div className="fixed bottom-0 w-full py-4 flex justify-around">
+      <HeaderMenuLinks />
+    </div>
   );
 };
