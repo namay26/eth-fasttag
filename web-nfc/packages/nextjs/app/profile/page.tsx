@@ -1,10 +1,12 @@
 "use client";
 
+import { useEffect, useState } from "react";
+import { convertRevealBigIntToString } from "@anon-aadhaar/core";
+import { useAnonAadhaar, useProver } from "@anon-aadhaar/react";
 import type { NextPage } from "next";
 import { stringToHex } from "viem";
 import { useScaffoldReadContract } from "~~/hooks/scaffold-eth";
 import { getMetadata } from "~~/utils/scaffold-eth/getMetadata";
-import { useProver } from "@anon-aadhaar/react";
 
 const metadata = getMetadata({
   title: "User Profile",
@@ -12,14 +14,36 @@ const metadata = getMetadata({
 });
 
 const UserProfile: NextPage = () => {
-  const [,LatestProof] = useProver();
-  const proof = "1234k";
-
-  const { data: profile } = useScaffoldReadContract({
-    contractName: "walletManager",
-    functionName: "getProfile",
-    args: [stringToHex(proof)],
+  const [anonAadhaar] = useAnonAadhaar();
+  const [, LatestProof] = useProver();
+  const [profile, setProfile] = useState({
+    state: "",
+    pincode: "",
+    gender: "",
   });
+
+  console.log(anonAadhaar);
+  // const proof = "1234k";
+
+  // const { data: profile } = useScaffoldReadContract({
+  //   contractName: "walletManager",
+  //   functionName: "getProfile",
+  //   args: [stringToHex(proof)],
+  // });
+
+  useEffect(() => {
+    if (anonAadhaar.status === "logged-in" && LatestProof) {
+      const { pincode, state, gender } = LatestProof.proof;
+      console.log(LatestProof.proof);
+      setProfile({
+        state,
+        pincode,
+        gender: gender === "77" ? "Male" : "Female",
+      });
+    }
+  }, [anonAadhaar.status, LatestProof]);
+
+  console.log(profile);
 
   return (
     <>
@@ -29,19 +53,10 @@ const UserProfile: NextPage = () => {
           <h1 className="text-center text-2xl font-semibold mb-6">Samny Raina</h1>
           <div className="space-y-4">
             <div>
-              <label className="block text-gray-500 text-sm">Mobile Number</label>
+              <label className="block text-gray-500 text-sm">State</label>
               <input
                 type="text"
-                value="+91 93425 34737"
-                className="w-full bg-gray-800 text-white py-2 px-4 rounded"
-                disabled
-              />
-            </div>
-            <div>
-              <label className="block text-gray-500 text-sm">Address</label>
-              <input
-                type="text"
-                value="Jawahar Bhawan, IIT Roorkee, Uttrakhand"
+                value={convertRevealBigIntToString(profile.state)}
                 className="w-full bg-gray-800 text-white py-2 px-4 rounded"
                 disabled
               />
@@ -51,16 +66,16 @@ const UserProfile: NextPage = () => {
                 <label className="block text-gray-500 text-sm">Pin Code</label>
                 <input
                   type="text"
-                  value="360 576"
+                  value={profile.pincode}
                   className="w-full bg-gray-800 text-white py-2 px-4 rounded"
                   disabled
                 />
               </div>
               <div className="flex-1">
-                <label className="block text-gray-500 text-sm">City</label>
+                <label className="block text-gray-500 text-sm">Gender</label>
                 <input
                   type="text"
-                  value="Roorkee"
+                  value={profile.gender}
                   className="w-full bg-gray-800 text-white py-2 px-4 rounded"
                   disabled
                 />

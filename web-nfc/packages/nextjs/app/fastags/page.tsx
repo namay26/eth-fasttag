@@ -1,13 +1,12 @@
 "use client";
 
+import { useEffect, useState } from "react";
+import { useAnonAadhaar } from "@anon-aadhaar/react";
 import type { NextPage } from "next";
 import { stringToBytes, stringToHex, toBytes } from "viem";
+import { useBalance, useReadContracts } from "wagmi";
 import { useScaffoldReadContract, useTransactor } from "~~/hooks/scaffold-eth";
 import { getMetadata } from "~~/utils/scaffold-eth/getMetadata";
-
-import { useBalance, useReadContracts } from "wagmi";
-import { useEffect, useState } from "react";
-
 
 const metadata = getMetadata({
   title: "FASTag Profiles",
@@ -15,37 +14,49 @@ const metadata = getMetadata({
 });
 
 const FASTagProfile: NextPage = () => {
+  const [anonAadhaar] = useAnonAadhaar();
+  // const { data } = useScaffoldReadContract({
+  //   contractName: "walletManager",
+  //   functionName: "getWalletForCar",
+  //   args: ["MJ03SM2536"],
+  // });
 
+  // const { data: userCars } = useScaffoldReadContract({
+  //   contractName: "walletManager",
+  //   functionName: "getUserCars",
+  //   args: [stringToHex(anonAadhaar)],
+  // });
 
-
-
-
-  const { data } = useScaffoldReadContract({
-    contractName: "walletManager",
-    functionName: "getWalletForCar",
-    args: ["MJ03SM2536"],
-  });
+  const pcd = (anonAadhaar as any)?.anonAadhaarProofs
+    ? (anonAadhaar as any)?.anonAadhaarProofs[0]?.pcd
+    : '{ "proof": {}}';
 
   const { data: userCars } = useScaffoldReadContract({
     contractName: "walletManager",
     functionName: "getUserCars",
-    args: [stringToHex("14517253733069349235333669871336408150595731506407507345889184041886486997053")],
+    args: [stringToHex(JSON.parse(pcd).proof.nullifier || "")],
   });
-  const [balances, setBalances] = useState([]);
 
-  type ContractConfig = {
-    functionName: string;
-    args: any[];
-  };
-
-  const contracts: ContractConfig[] = userCars?.map((car: any) => ({
-    functionName: "getWalletForCar",
-    args: [car],
-  }));
-
-  const result = useReadContracts({
-    contracts,
+  const wallets = userCars?.map((carId: any) => {
+    const { data } = useScaffoldReadContract({
+      contractName: "walletManager",
+      functionName: "getWalletForCar",
+      args: [carId],
+    });
+    return data;
   });
+
+  // console.log(anonAadhaar);
+  // console.log(userCars, wallets);
+
+  // const contracts: any = userCars?.map((car: any) => ({
+  //   functionName: "getWalletForCar",
+  //   args: [car],
+  // }));
+
+  // const result = useReadContracts({
+  //   contracts: contracts,
+  // });
   const transactor = useTransactor();
 
   const transferEth = async () => {
@@ -73,10 +84,7 @@ const FASTagProfile: NextPage = () => {
           <button className="text-gray-400 text-2xl">Add fastag</button>
           <div className="text-xl font-semibold mb-6">FASTags</div>
 
-
-
-
-          {result?.data?.map((item, index) => (
+          {wallets?.data?.map((item, index) => (
             <div key={index} className="bg-gray-800 rounded-lg p-6 mb-6">
               <div className="text-lg font-semibold mb-2">{item.id} </div>
               <div className="text-sm text-gray-400">Volkswagen Polo</div>
@@ -84,13 +92,10 @@ const FASTagProfile: NextPage = () => {
               <div className="text-sm text-green-400">{item.status === "success" ? "Active" : "Inactive"}</div>
               <div className="mt-4">
                 <div className="text-lg font-semibold">Current Balance: $1,500</div>
-                <button className="mt-2 text-white bg-green-600 py-2 px-4 rounded">
-                  Add Amount
-                </button>
+                <button className="mt-2 text-white bg-green-600 py-2 px-4 rounded">Add Amount</button>
               </div>
             </div>
           ))}
-
         </div>
       </div>
     </>

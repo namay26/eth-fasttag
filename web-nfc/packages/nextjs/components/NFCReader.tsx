@@ -5,7 +5,6 @@ import React, { useCallback, useEffect, useState } from "react";
 const Scan = ({ onChange }: { onChange: (event: NDEFReadingEvent) => any }) => {
   const [nfcAvailable, setNfcAvailable] = useState(false);
   const [scanning, setScanning] = useState(false);
-  const [message, setMessage] = useState<any>("");
 
   const startScanner = async () => {
     try {
@@ -30,11 +29,7 @@ const Scan = ({ onChange }: { onChange: (event: NDEFReadingEvent) => any }) => {
   };
 
   const scan = useCallback(async () => {
-    console.log("scan");
-    if (!window) return;
-    setMessage(window);
     if ("NDEFReader" in window) {
-      console.log("reader present");
       try {
         new NDEFReader();
         setNfcAvailable(true);

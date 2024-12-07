@@ -16,7 +16,10 @@ export default function Reader() {
 
   return (
     <div className="bg-black text-white h-screen flex flex-col items-center py-8 mt-40">
-      <LogInWithAnonAadhaar fieldsToReveal={["revealGender", "revealState", "revealPinCode"]} nullifierSeed={4354} />
+      <LogInWithAnonAadhaar
+        fieldsToReveal={["revealGender", "revealState", "revealPinCode"]}
+        nullifierSeed={Number(process.env.NEXT_PUBLIC_SEED) || 1234}
+      />
     </div>
   );
 }
