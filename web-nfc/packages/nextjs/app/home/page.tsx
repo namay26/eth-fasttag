@@ -1,12 +1,71 @@
 import type { NextPage } from "next";
 import { getMetadata } from "~~/utils/scaffold-eth/getMetadata";
-
+import { useScaffoldReadContract, useScaffoldWriteContract } from "~~/hooks/scaffold-eth";
+import { walletManager } from "./../constants";
+import { stringToBytes, stringToHex, toBytes } from "viem";
+import { useBalance } from 'wagmi';
 export const metadata = getMetadata({
     title: "Vehicle Profile",
     description: "Manage vehicle details and view transaction history",
 });
 
 const VehicleProfile: NextPage = () => {
+    const { address } = useAccount();
+
+    const { data } = useScaffoldReadContract({
+      contractName: "walletManager",
+      functionName: "getWalletForCar",
+      args: ["MJ03SM2536"],
+    });
+
+    const { data: userCars } = useScaffoldReadContract({
+    
+        contractName: "walletManager",
+        functionName: "getUserCars",
+        args: [
+          stringToHex(
+            "14517253733069349235333669871336408150595731506407507345889184041886486997053"
+          ),
+        ],
+    });
+    let balances=[];
+
+    userCars.forEach((ele)=> {
+        let userAccount=useScaffoldReadContract({contractName:"walletManager",functionName:"getWalletForCar",args:[ele]});
+        const result = useBalance({
+            address: `${userAccount}`,
+          });
+        balances.push(result)
+    });
+
+
+
+  const transferEth = async () => {
+    try {
+      if (!address) return;
+
+      const tx = await writeContractAsync({
+        address: "0x74C855b83cB6fCc5fDf29aFbDfBfB2f5cAeDaD8",
+        abi: [
+          {
+            inputs: [
+              { internalType: "address", name: "_to", type: "address" },
+              { internalType: "uint256", name: "_value", type: "uint256" },
+            ],
+            name: "transfer",
+            outputs: [{ internalType: "bool", name: "", type: "bool" }],
+            stateMutability: "nonpayable",
+            type: "function",
+          },
+        ],
+        functionName: "transfer",
+        args: ["0x15E41209168cC2cfac67983DF6a480dCC9343113", "0.1"],
+      });
+      console.log(tx);
+    } catch (err) {
+      console.log(err);
+    }
+  };
     return (
         <>
             <div className="bg-black text-white h-screen flex flex-col items-center py-8">
@@ -80,3 +139,11 @@ const VehicleProfile: NextPage = () => {
 };
 
 export default VehicleProfile;
+function useAccount(): { address: any; } {
+    throw new Error("Function not implemented.");
+}
+
+function stringToHex(arg0: string) {
+    throw new Error("Function not implemented.");
+}
+

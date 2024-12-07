@@ -1,4 +1,6 @@
 import type { NextPage } from "next";
+import { stringToHex } from "viem";
+import { useScaffoldReadContract } from "~~/hooks/scaffold-eth";
 import { getMetadata } from "~~/utils/scaffold-eth/getMetadata";
 
 export const metadata = getMetadata({
@@ -7,6 +9,14 @@ export const metadata = getMetadata({
 });
 
 const UserProfile: NextPage = () => {
+  //get the proof
+  
+  const { data: profile } = useScaffoldReadContract({
+    contractName: "walletManager",
+    functionName: "getProfile",
+    args: [stringToHex(proof)],
+  });
+
   return (
     <>
       <div className="bg-black text-white h-screen flex flex-col items-center py-8">
@@ -54,8 +64,6 @@ const UserProfile: NextPage = () => {
             </div>
           </div>
         </div>
-
-
       </div>
     </>
   );
