@@ -20,7 +20,7 @@ export const menuLinks: HeaderMenuLink[] = [
     href: "/fastags",
   },
   {
-    icon: "/map.svg",
+    icon: "/scanner.svg",
     label: "Scanner",
     href: "/scanner",
 

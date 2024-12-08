@@ -23,13 +23,6 @@ const UserProfile: NextPage = () => {
   });
 
   console.log(anonAadhaar);
-  // const proof = "1234k";
-
-  // const { data: profile } = useScaffoldReadContract({
-  //   contractName: "walletManager",
-  //   functionName: "getProfile",
-  //   args: [stringToHex(proof)],
-  // });
 
   useEffect(() => {
     if (anonAadhaar.status === "logged-in" && LatestProof) {
@@ -48,15 +41,19 @@ const UserProfile: NextPage = () => {
   return (
     <>
       <div
-        className="bg-black text-white h-screen flex flex-col items-center py-8"
-        style={{ position: "absolute", top: "70px" }}
+        className="bg-black text-white flex flex-col items-center justify-center"
       >
         <div className="w-11/12 max-w-md">
-          <div className="w-24 h-24 rounded-full mx-auto mb-6" style={{ backgroundColor: "#191919" }}></div>
-          <h1 className="text-center text-2xl font-semibold mb-6" style={{ fontFamily: "Poppins, sans-serif" }}>
-            Samny Raina
+          <div
+            className="bg-[url('/dp.jpeg')] bg-cover bg-center w-24 h-24 rounded-full mx-auto mb-6"
+          ></div>
+          <h1
+            className="text-center text-2xl font-semibold mb-6"
+            style={{ fontFamily: "Poppins, sans-serif" }}
+          >
+            Alpha Dose
           </h1>
-          <div className="space-y-6 ml-6 mr-6">
+          <div className="space-y-6">
             <div>
               <label
                 className="block text-white text-l"
@@ -68,7 +65,11 @@ const UserProfile: NextPage = () => {
                 type="text"
                 value={convertRevealBigIntToString(profile.state)}
                 className="w-full text-white py-2 px-4 rounded"
-                style={{ backgroundColor: "#191919", color: "gray", fontFamily: "Poppins, sans-serif" }}
+                style={{
+                  backgroundColor: "#191919",
+                  color: "gray",
+                  fontFamily: "Poppins, sans-serif",
+                }}
                 disabled
               />
             </div>
@@ -84,7 +85,11 @@ const UserProfile: NextPage = () => {
                   type="text"
                   value={profile.pincode}
                   className="w-full text-white py-2 px-4 rounded"
-                  style={{ backgroundColor: "#191919", color: "gray", fontFamily: "Poppins, sans-serif" }}
+                  style={{
+                    backgroundColor: "#191919",
+                    color: "gray",
+                    fontFamily: "Poppins, sans-serif",
+                  }}
                   disabled
                 />
               </div>
@@ -99,7 +104,11 @@ const UserProfile: NextPage = () => {
                   type="text"
                   value={profile.gender === "77" ? "Male" : "Female"}
                   className="w-full text-white py-2 px-4 rounded"
-                  style={{ backgroundColor: "#191919", color: "gray", fontFamily: "Poppins, sans-serif" }}
+                  style={{
+                    backgroundColor: "#191919",
+                    color: "gray",
+                    fontFamily: "Poppins, sans-serif",
+                  }}
                   disabled
                 />
               </div>

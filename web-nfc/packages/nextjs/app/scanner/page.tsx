@@ -1,10 +1,8 @@
-
 "use client";
 
 import React, { useState } from "react";
 import Image from "next/image";
 import NFCReader from "~~/components/NFCReader";
-
 
 interface Profile {
   user: {
@@ -16,7 +14,6 @@ interface Profile {
 }
 
 export default function Reader() {
-  // const [urlRecord, setUrlRecord] = useState("");
   const [profile, setProfile] = useState<Profile | null>(null);
   const [serialNumber, setSerialNumber] = useState("");
 
@@ -36,7 +33,6 @@ export default function Reader() {
       console.log("Record data:  " + textDecoder.decode(record.data));
       if (record.recordType === "url") {
         const urlstr = textDecoder.decode(record.data);
-        // setUrlRecord(urlstr);
         const profileId = urlstr.substring(urlstr.lastIndexOf("/") + 1);
         fetchProfile(profileId);
       }
@@ -44,8 +40,10 @@ export default function Reader() {
   };
 
   return (
-    <div style={{position:"absolute",top:"330px", marginLeft:"68px"}}>
-      <NFCReader onChange={handleNFCData} />
+    <div className="flex items-center justify-center mt-40">
+      <div style={{ marginLeft: "14px" }}>
+        <NFCReader onChange={handleNFCData} />
+      </div>
     </div>
   );
 }

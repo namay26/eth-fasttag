@@ -44,7 +44,7 @@ const Scan = ({ onChange }: { onChange: (event: NDEFReadingEvent) => any }) => {
   }, [scan]);
 
   return (
-    <center>
+    <div>
       {nfcAvailable && (
         <button
           className={`btn w-64 h-60 flex flex-row align-middle mt-24 text-xl rounded-2xl ${
@@ -71,15 +71,15 @@ const Scan = ({ onChange }: { onChange: (event: NDEFReadingEvent) => any }) => {
         </button>
       )}
       {!nfcAvailable && (
-        <center>
+        <div style={{display:'flex', justifyContent:'center', flexDirection:'column', alignItems:'center'}}>
           <button className="btn disabled btn-primary w-64 rounded-md">NFC not available on this device</button>
           <div className="text-sm my-2">
             Requires Chrome on Android (
             <a href="https://developer.mozilla.org/en-US/docs/Web/API/Web_NFC_API#browser_compatibility">more info</a>)
           </div>
-        </center>
+        </div>
       )}
-    </center>
+    </div>
   );
 };
 
