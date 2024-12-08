@@ -84,3 +84,4 @@ TollChain is made up of following components:
 
 - UserWallet.sol : `0x74e397BB2bC5FcDc15afe3184dEDd340d64712BC`
 - WalletManager.sol : `0x33C6A4E07AFa99ff74648C4305C82349836D3615`
+- Paymaster.sol: `0x972DA3a7cB9939e58d816E712624db2FD4392092`
