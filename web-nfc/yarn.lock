@@ -2147,6 +2147,7 @@ __metadata:
     eslint-config-next: "npm:~14.2.15"
     eslint-config-prettier: "npm:~8.10.0"
     eslint-plugin-prettier: "npm:~5.2.1"
+    ethers: "npm:5.7.2"
     next: "npm:~14.2.11"
     next-nprogress-bar: "npm:~2.3.13"
     next-themes: "npm:~0.3.0"
@@ -6572,7 +6573,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"ethers@npm:^5.5.1, ethers@npm:~5.7.1":
+"ethers@npm:5.7.2, ethers@npm:^5.5.1, ethers@npm:~5.7.1":
   version: 5.7.2
   resolution: "ethers@npm:5.7.2"
   dependencies:
