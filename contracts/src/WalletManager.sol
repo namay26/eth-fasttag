@@ -44,6 +44,7 @@ contract WalletManager{
         }
         
         UserWallet newWallet = new UserWallet(address(i_entryPoint));
+        newWallet.transferOwnership(msg.sender);
         carIdToWallet[carId] = address(newWallet);
         userCars[userProof].push(carId);
         
